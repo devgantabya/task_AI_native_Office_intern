@@ -1,153 +1,118 @@
-# SpreadsheetApp
+# Advanced Spreadsheet Application
 
-A modern web application built with React and Vite for creating and managing spreadsheets.
+A feature-rich spreadsheet application built with a strong focus on real-world usability, performance, and Excel-like behavior. This project demonstrates advanced frontend engineering concepts including view-layer data manipulation, clipboard integration, and persistent state management.
 
-## Prerequisites
+---
 
-Before you begin, ensure you have the following installed on your system:
+## Live Features
 
-- **Node.js** (version 18 or higher) - [Download](https://nodejs.org/)
-- **npm** (comes with Node.js) or **yarn**
-- **Git** - [Download](https://git-scm.com/)
+### 🔹 Column Sorting & Filtering
 
-## Getting Started
+- Implemented three-state column sorting:
+  - Ascending → Descending → None
+- Sorting works on computed values (formula results), not just raw inputs
+- Excel-like filter dropdowns in column headers
+- Filtering:
+  - Hides rows instead of deleting them
+  - Preserves original dataset integrity
+- Fully reversible sorting and filtering
+- Sorting is applied only at the view layer
+  - Ensures formulas continue referencing original cell positions
 
-### 1. Clone the Repository
+---
+
+### 🔹 Multi-Cell Copy & Paste (Clipboard Integration)
+
+- Supports Ctrl + V paste from Excel / Google Sheets
+- Handles multi-row and multi-column tab-separated data
+- Internal copy-paste between cells
+- Ctrl + C copies computed values (not formulas)
+- All paste operations are undoable with Ctrl + Z
+
+---
+
+### 🔹 Local Storage Persistence
+
+- Auto-save functionality using local storage
+- Restores spreadsheet state on page reload
+- Persisted data includes:
+  - Cell values
+  - Formulas
+  - Styles
+  - Grid dimensions
+- Debounced saving (500ms) for performance optimization
+- Handles storage limits and corrupted data safely
+- Undo/redo history is not persisted (by design)
+
+---
+
+## Key Engineering Decisions
+
+### View-Layer Sorting Architecture
+
+Sorting does not mutate the original dataset. Instead:
+
+- A transformed view is rendered
+- Ensures stable formula references and predictable behavior
+
+### Clipboard Data Handling
+
+- Parses clipboard data using:
+  - `\t` (tab separation)
+  - `\n` (row separation)
+- Ensures compatibility with Excel and Google Sheets
+
+### Debounced Persistence Strategy
+
+- Reduces unnecessary writes to local storage
+- Improves performance during rapid input
+
+---
+
+## Edge Cases Handled
+
+- Mixed data types during sorting
+- Empty or null cells
+- Large clipboard paste operations
+- Partial grid pasting
+- Formula recalculation after paste
+- Filtering with no matching results
+- Corrupted or overflowing local storage
+
+---
+
+## Evaluation Focus
+
+- Clean and maintainable code structure
+- Strong edge case handling
+- Clear separation of data and UI layers
+- Real-world spreadsheet UX behavior
+- Performance optimizations (debouncing, efficient updates)
+
+---
+
+## Tech Stack
+
+- Frontend: React + Vite
+- Language: JavaScript, TypeScript
+- State Management: React Hooks
+- Storage: Browser LocalStorage
+- Clipboard: Native Clipboard API
+
+---
+
+## Setup Instructions
 
 ```bash
-git clone https://github.com/tauhidst07/spreadhsheet.git
-cd SpreadsheetApp
-```
+# Clone the repository
+git clone https://github.com/devgantabya/task_AI_native_Office_intern.git
 
-### 2. Install Dependencies
+# Navigate to project folder
+cd task_AI_native_Office_intern
 
-Install all required project dependencies:
-
-```bash
+# Install dependencies
 npm install
-```
 
-Or if you prefer yarn:
-
-```bash
-yarn install
-```
-
-### 3. Run Development Server
-
-Start the development server with hot module replacement (HMR):
-
-```bash
+# Start development server
 npm run dev
 ```
-
-The application will be available at `http://localhost:5173`
-
-### 4. Build for Production
-
-Create an optimized production build:
-
-```bash
-npm run build
-```
-
-The build output will be in the `dist/` directory.
-
-### 5. Preview Production Build
-
-Preview the production build locally:
-
-```bash
-npm run preview
-```
-
-### 6. Lint Code
-
-Run ESLint to check for code quality issues:
-
-```bash
-npm run lint
-```
-
-## Project Structure
-
-```
-SpreadsheetApp/
-├── src/
-│   ├── App.jsx           # Main React component
-│   ├── App.css           # Application styles
-│   ├── main.jsx          # Application entry point
-│   ├── index.css         # Global styles
-│   ├── assets/           # Static assets (images, icons, etc.)
-│   └── engine/           # Core application logic
-│       └── core.js       # Engine core functionality
-├── public/               # Static files served as-is
-├── package.json          # Project dependencies and scripts
-├── vite.config.js        # Vite configuration
-├── eslint.config.js      # ESLint configuration
-├── index.html            # HTML entry point
-└── README.md             # This file
-```
-
-## Technologies Used
-
-- **React** - A JavaScript library for building user interfaces
-- **Vite** - A next-generation frontend build tool
-- **ESLint** - JavaScript linting utility
-- **CSS** - Styling and layout
-
-## Available Scripts
-
-| Command | Description |
-|---------|-------------|
-| `npm run dev` | Start the development server with hot reload |
-| `npm run build` | Build the application for production |
-| `npm run preview` | Preview the production build locally |
-| `npm run lint` | Run ESLint to check code quality |
-
-## Development Workflow
-
-1. Create a new branch for your feature:
-   ```bash
-   git checkout -b feature/your-feature-name
-   ```
-
-2. Make your changes and ensure the code passes linting:
-   ```bash
-   npm run lint
-   ```
-
-3. Commit your changes:
-   ```bash
-   git commit -m "Add description of your changes"
-   ```
-
-4. Push to your fork and create a Pull Request
-
-## Browser Support
-
-This application works on all modern browsers that support ES2020+ JavaScript:
-
-- Chrome (latest)
-- Firefox (latest)
-- Safari (latest)
-- Edge (latest)
-
-## Troubleshooting
-
-### Dependencies won't install
-- Clear npm cache: `npm cache clean --force`
-- Delete `node_modules` and `package-lock.json`, then reinstall: `rm -rf node_modules package-lock.json && npm install`
-
-### Port 5173 already in use
-- The dev server will automatically try the next available port
-- Or specify a custom port: `npm run dev -- --port 3000`
-
-### Build fails
-- Ensure all dependencies are installed: `npm install`
-- Clear any build cache: `rm -rf dist`
-- Try rebuilding: `npm run build`
-
-
-
-# task_AI_native_Office_intern
